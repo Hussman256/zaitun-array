@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temikoods — Handcrafted Ankara Bag</title>
+  <meta name="description" content="Handcrafted ankara bag by Temikoods — genuine wax print, small batch, made in Nigeria.">
+
+  <!-- Static fallback OG/Twitter tags: this page renders per-product content via JS,
+       but link-preview crawlers (WhatsApp, Facebook, X) don't execute it, so every
+       product link shares with this same generic card. Fixing that per-product needs
+       server-side or prerendered per-product pages. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Temikoods">
+  <meta property="og:url" content="https://temikoods.com/product.html">
+  <meta property="og:title" content="Temikoods — Handcrafted Ankara Bag">
+  <meta property="og:description" content="Handcrafted ankara bag by Temikoods — genuine wax print, small batch, made in Nigeria.">
+  <meta property="og:image" content="https://temikoods.com/images/bag-0030.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Temikoods — Handcrafted Ankara Bag">
+  <meta name="twitter:description" content="Handcrafted ankara bag by Temikoods — genuine wax print, small batch, made in Nigeria.">
+  <meta name="twitter:image" content="https://temikoods.com/images/bag-0030.jpg">
+
+  <link rel="icon" href="images/logo.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="announce">Free Lagos delivery over ₦50,000 · Nationwide in 2–4 days · <b>Use code AKWAABA10 for 10% off your first order</b></div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img src="images/logo.jpg" alt="Temikoods logo">
+        <span class="brand-name">Temi<span>koods</span></span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shop.html" class="active">Shop</a>
+        <a href="shop.html#backpacks">Backpacks</a>
+        <a href="shop.html#work">Work Bags</a>
+        <a href="about.html">Our Story</a>
+      </nav>
+      <div class="header-actions">
+        <button class="cart-btn" aria-label="Open shopping bag">
+          <span class="cart-label">Bag</span>
+          <span class="cart-count">0</span>
+        </button>
+        <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="pd-grid" id="pd-root">
+      <!-- rendered by JS -->
+    </div>
+
+    <section class="section" style="padding-top: 0;">
+      <h2 class="display related-head reveal in">You might also <em>love</em></h2>
+      <div class="product-grid" id="related-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <img src="images/logo.jpg" alt="Temikoods logo">
+          <span class="brand-name" style="color: var(--cream)">Temi<span>koods</span></span>
+        </a>
+        <p>Handcrafted ankara bags from Nigeria. Genuine wax prints, small batches, built to be noticed and made to last.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="shop.html#backpacks">Backpacks</a>
+        <a href="shop.html#work">Work &amp; Laptop</a>
+        <a href="shop.html#travel">Travel</a>
+        <a href="shop.html">All Bags</a>
+      </div>
+      <div class="footer-col">
+        <h4>Temikoods</h4>
+        <a href="about.html">Our Story</a>
+        <a href="index.html#craft">The Craft</a>
+        <a href="shop.html">New Arrivals</a>
+      </div>
+      <div class="footer-col">
+        <h4>Talk to us</h4>
+        <a href="https://wa.me/2348000000000" target="_blank" rel="noopener">WhatsApp us</a>
+        <a href="mailto:hello@temikoods.com">hello@temikoods.com</a>
+        <a href="https://instagram.com/temikoods" target="_blank" rel="noopener">Instagram @temikoods</a>
+      </div>
+    </div>
+    <div class="footer-mega" aria-hidden="true">TEMIKOODS</div>
+    <div class="wrap footer-bottom">
+      <span>© 2026 Temikoods · Handmade in Nigeria</span>
+      <span>Carry your culture ✦</span>
+    </div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const id = new URLSearchParams(location.search).get("id");
+      const p = PRODUCTS.find((p) => p.id === id) || PRODUCTS[0];
+      document.title = `${p.name} — Temikoods`;
+
+      let qty = 1;
+      const root = document.getElementById("pd-root");
+      const saveAmt = p.oldPrice ? p.oldPrice - p.price : 0;
+
+      root.innerHTML = `
+        <div class="pd-media reveal in">
+          <div class="pd-img"><img src="${p.img}" alt="${p.name} — handcrafted ankara bag by Temikoods"></div>
+        </div>
+        <div class="pd-info">
+          <span class="pd-cat reveal in">${CATEGORY_LABELS[p.category]} · Handmade in Nigeria</span>
+          <h1 class="display reveal in">${p.name}</h1>
+          <p class="pd-tagline reveal in reveal-d1">${p.tagline}</p>
+          <div class="pd-price-row reveal in reveal-d1">
+            <span class="pd-price">${formatNaira(p.price)}</span>
+            ${p.oldPrice ? `<span class="pd-old">${formatNaira(p.oldPrice)}</span><span class="pd-save">Save ${formatNaira(saveAmt)}</span>` : ""}
+          </div>
+          <div class="pd-stock reveal in reveal-d1">Only ${p.stock} left in this batch</div>
+          <p class="pd-desc reveal in reveal-d2">${p.description}</p>
+          <ul class="pd-details reveal in reveal-d2">
+            ${p.details.map((d) => `<li>${d}</li>`).join("")}
+          </ul>
+          <div class="pd-buy reveal in reveal-d3">
+            <div class="qty-select">
+              <button id="qty-dec" aria-label="Decrease quantity">−</button>
+              <span id="qty-val">1</span>
+              <button id="qty-inc" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="btn" id="add-btn"><span>Add to bag</span> <span class="arr">→</span></button>
+          </div>
+          <button class="btn btn-wa reveal in reveal-d3" id="buy-wa"><span>Order now on WhatsApp</span> <span class="arr">→</span></button>
+          <div class="pd-trust reveal in reveal-d3">
+            <span>🛡️ 6-month make-it-right guarantee</span>
+            <span>🚚 Ships in 2–4 days nationwide</span>
+            <span>✦ Genuine ankara wax print</span>
+          </div>
+        </div>`;
+
+      const qtyVal = document.getElementById("qty-val");
+      document.getElementById("qty-inc").addEventListener("click", () => { qty = Math.min(qty + 1, 10); qtyVal.textContent = qty; });
+      document.getElementById("qty-dec").addEventListener("click", () => { qty = Math.max(qty - 1, 1); qtyVal.textContent = qty; });
+      document.getElementById("add-btn").addEventListener("click", () => { addToCart(p.id, qty); openCart(); });
+      document.getElementById("buy-wa").addEventListener("click", () => {
+        const msg = `Hello Temikoods! 👋 I'd like to order:\n\n• ${p.name} × ${qty} — ${formatNaira(p.price * qty)}\n\nMy delivery details:\nName:\nLocation:`;
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+      });
+
+      const related = PRODUCTS.filter((x) => x.id !== p.id && x.category === p.category);
+      const fill = PRODUCTS.filter((x) => x.id !== p.id && x.category !== p.category);
+      renderProductGrid(document.getElementById("related-grid"), related.concat(fill).slice(0, 4));
+    });
+  </script>
+</body>
+</html>
