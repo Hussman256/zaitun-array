@@ -1,7 +1,9 @@
 # Temikoods — Handcrafted Ankara Bags
 
-Award-style e-commerce site for the Temikoods bag brand. Pure HTML/CSS/JS — no build
-step, deployable to any static host (Vercel, Netlify, GitHub Pages).
+Award-style e-commerce site for the Temikoods bag brand. Static HTML/CSS/JS front end
+plus one Vercel serverless function (`api/verify-payment.js`) for payment verification.
+Deployable to Vercel; a plain static host (Netlify, GitHub Pages) works for everything
+except the on-site card/transfer payment, which needs the serverless function.
 
 ## Pages
 
@@ -24,14 +26,23 @@ step, deployable to any static host (Vercel, Netlify, GitHub Pages).
    `robots.txt` and `sitemap.xml`, use the placeholder `https://temikoods.com`;
    replace with the real production domain once it's live (search for
    `temikoods.com` across the repo).
+5. **Flutterwave keys** — in `products.js`, replace `FLW_PUBLIC_KEY` with the real
+   public key from the Flutterwave dashboard. Set the matching **secret** key as the
+   `FLW_SECRET_KEY` environment variable in the Vercel project settings — never put it
+   in a file that gets committed.
 
 ## How orders work
 
-The cart (persisted in localStorage) checks out via WhatsApp: it opens a chat with a
-pre-filled order message (items, quantities, total, delivery details prompt). No
-payment gateway is required — you confirm and take payment in the chat, which is the
-highest-converting flow for Nigerian social-commerce brands. A Paystack/Flutterwave
-gateway can be added later if needed.
+The cart (persisted in localStorage) offers two checkout paths from the same drawer:
+
+- **Pay with Card / Transfer** — collects name/email/phone, opens Flutterwave's inline
+  checkout, then calls `api/verify-payment.js` (a Vercel serverless function) to
+  confirm the transaction status, amount and currency server-side before treating the
+  order as paid. There is no order database — once verified, the cart clears and a
+  WhatsApp chat auto-opens with the client, prefilled with the paid order details and
+  payment reference, so she still has everything she needs to fulfil it.
+- **Checkout on WhatsApp** — unchanged: opens a chat with a pre-filled order message
+  and payment happens in the DM, as before.
 
 ## Adding a new product
 
@@ -43,11 +54,24 @@ gateway can be added later if needed.
 
 ## Run locally
 
+For static pages only (no payment testing):
+
 ```bash
 npx http-server -p 3456
 # then open http://localhost:3456
 ```
 
+To test the payment flow, the `/api` function needs to run too — use the Vercel CLI
+instead:
+
+```bash
+npm i -g vercel
+vercel dev
+```
+
 ## Deploy
 
-Any static host works. For Vercel: `npm i -g vercel && vercel` from this folder.
+Deploy to Vercel: `vercel` from this folder. Set `FLW_SECRET_KEY` in the project's
+environment variables before testing real payments. A plain static host works for
+every page except on-site payment, since that needs `api/verify-payment.js` to run
+somewhere.

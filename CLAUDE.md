@@ -4,27 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Temikoods — a static e-commerce site for a Nigerian handcrafted ankara-bag brand. Pure HTML/CSS/JS, no build step, no framework, no package.json. Deployable to any static host.
+Temikoods — an e-commerce site for a Nigerian handcrafted ankara-bag brand. Static HTML/CSS/JS front end (no build step, no framework) plus a single Vercel serverless function (`api/verify-payment.js`) that verifies Flutterwave payments server-side.
 
 ## Run locally
+
+Static pages only (no payment testing):
 
 ```bash
 npx http-server -p 3456
 # then open http://localhost:3456
 ```
 
-There is no build, lint, or test tooling in this repo — changes are verified by loading pages directly in a browser.
+To exercise the `/api/verify-payment` endpoint too, use the Vercel CLI instead: `vercel dev`. There is no lint or test tooling in this repo — changes are verified by loading pages directly in a browser.
 
 ## Deploy
 
-Any static host works as-is. For Vercel: `vercel` from this folder (no config needed).
+Deploy to Vercel (`vercel` from this folder) — it auto-detects the `api/` folder as serverless functions and serves everything else as static files, no `vercel.json` needed. Set `FLW_SECRET_KEY` in the Vercel project's environment variables before testing real payments; it must never be committed. A plain static host (Netlify, GitHub Pages) still works for every page except on-site payment, since that path depends on `api/verify-payment.js` running somewhere.
 
 ## Architecture
 
 - **`products.js`** is the single source of truth for the catalog: the `PRODUCTS` array, `WHATSAPP_NUMBER`, `CATEGORY_LABELS`, and the `formatNaira()` helper. Every page (`index.html`, `shop.html`, `product.html`, `about.html`) loads `products.js` before `app.js`.
 - **`app.js`** holds all shared behavior: cart state (persisted to `localStorage` under key `temikoods_cart_v1`), the cart drawer UI, `productCardHTML()` (renders a product card), `renderProductGrid()`, WhatsApp checkout message building, toasts, nav toggle, and scroll-reveal (`IntersectionObserver` on `.reveal` elements). This is loaded on every page and wires itself up on `DOMContentLoaded`.
 - **No routing/build**: `product.html` reads `?id=<product-id>` from the query string via an inline `<script>` block at the bottom of the file, looks it up in `PRODUCTS`, and renders the detail markup directly into `#pd-root`. `shop.html` similarly uses an inline `<script>` to read `#backpacks` / `#work` / `#travel` from `location.hash` and filter the grid client-side (`.chip[data-filter]` buttons).
-- **Checkout has no backend or payment gateway**: `checkoutWhatsApp()` in `app.js` builds a pre-filled order message from cart contents and opens `https://wa.me/<WHATSAPP_NUMBER>?text=...`. Order confirmation and payment happen manually in WhatsApp chat.
+- **Checkout has two paths, both in the cart drawer** (`app.js`): `checkoutWhatsApp()` builds a pre-filled order message from cart contents and opens `https://wa.me/<WHATSAPP_NUMBER>?text=...` (payment confirmed manually in chat); `payOnline()` collects name/email/phone, opens Flutterwave's inline checkout (`FlutterwaveCheckout(...)`, loaded via the `checkout.flutterwave.com/v3.js` script tag on every page), then on the client-side "successful" callback POSTs to `/api/verify-payment` to confirm the transaction server-side before treating the order as paid (`verifyAndFulfill()` → `fulfillPaidOrder()`).
+- **`api/verify-payment.js`** is the only backend code. It re-checks the Flutterwave transaction's `status`, `tx_ref`, `currency`, and `amount` against what the client claims, using `FLW_SECRET_KEY` (server-only env var) — never trust the client callback alone, since it can be spoofed/tampered with in the browser.
+- **No order database**: once a payment verifies, `fulfillPaidOrder()` clears the cart and opens a WhatsApp chat prefilled with the paid order details and `tx_ref` so the client still receives everything needed to fulfil it. There is nowhere else an order record is stored — if that WhatsApp message doesn't reach her (closed tab, no WhatsApp Web session), the order has no other record. Worth flagging if asked to make this more robust.
 - **Styling**: single `styles.css` for the whole site — no CSS modules/preprocessor. Uses CSS custom properties for theme colors/fonts.
 - **Images**: flat `images/` directory, referenced by relative path (e.g. `images/bag-0030.jpg`) from each product's `img` field in `products.js`.
 
@@ -46,3 +50,4 @@ These are launch-blocking placeholders already flagged in `README.md` — don't 
 - Per-product `price`, `oldPrice`, and `stock` in `products.js` are illustrative and need real values before launch.
 - `https://temikoods.com` used in the Open Graph/Twitter meta tags (every page's `<head>`), `robots.txt`, and `sitemap.xml` is a placeholder domain — swap for the real production URL once hosting is finalized.
 - `product.html`'s OG/Twitter tags are static/generic (same card for every product) because the page renders per-product content via client-side JS, which link-preview crawlers don't execute. Fixing this properly needs server-side rendering or prerendered per-product HTML — out of scope for the current no-build static setup.
+- `FLW_PUBLIC_KEY` in `products.js` is `"FLWPUBK_TEST-REPLACE-WITH-REAL-PUBLIC-KEY-X"` — a placeholder. The matching secret key must be set as `FLW_SECRET_KEY` in Vercel's environment variables, never committed to the repo.

@@ -74,6 +74,12 @@ function buildCartDrawer() {
         <span class="ct-label">Subtotal</span>
         <span class="ct-value"></span>
       </div>
+      <div class="checkout-fields">
+        <input type="text" class="cf-name" placeholder="Full name" autocomplete="name">
+        <input type="email" class="cf-email" placeholder="Email (for payment receipt)" autocomplete="email">
+        <input type="tel" class="cf-phone" placeholder="Phone number" autocomplete="tel">
+      </div>
+      <button class="btn pay-btn"><span>Pay with Card / Transfer</span> <span class="arr">→</span></button>
       <p class="cf-note">Free delivery in Lagos on orders over ₦50,000. We confirm every order personally on WhatsApp.</p>
       <button class="btn btn-wa checkout-btn"><span>Checkout on WhatsApp</span> <span class="arr">→</span></button>
     </div>`;
@@ -81,6 +87,7 @@ function buildCartDrawer() {
   document.body.appendChild(drawer);
   drawer.querySelector(".cart-close").addEventListener("click", closeCart);
   drawer.querySelector(".checkout-btn").addEventListener("click", checkoutWhatsApp);
+  drawer.querySelector(".pay-btn").addEventListener("click", payOnline);
 }
 
 function renderCartDrawer() {
@@ -170,6 +177,98 @@ function checkoutWhatsApp() {
     "Name:",
     "Location:",
   ].join("\n");
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+/* ---------- online payment (Flutterwave) ---------- */
+function payOnline() {
+  const cart = getCart();
+  if (cart.length === 0) return;
+
+  const emailEl = document.querySelector(".cf-email");
+  const nameEl = document.querySelector(".cf-name");
+  const phoneEl = document.querySelector(".cf-phone");
+  const email = emailEl.value.trim();
+  const name = nameEl.value.trim();
+  const phone = phoneEl.value.trim();
+
+  if (!email) {
+    showToast("Enter your email above to pay online");
+    emailEl.focus();
+    return;
+  }
+  if (typeof FlutterwaveCheckout !== "function") {
+    showToast("Online payment isn't available right now — please checkout on WhatsApp");
+    return;
+  }
+
+  const amount = cartTotal();
+  const txRef = `TMK-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+  FlutterwaveCheckout({
+    public_key: FLW_PUBLIC_KEY,
+    tx_ref: txRef,
+    amount,
+    currency: "NGN",
+    payment_options: "card, banktransfer, ussd",
+    customer: { email, phone_number: phone, name: name || "Temikoods Customer" },
+    customizations: {
+      title: "Temikoods",
+      description: "Payment for handcrafted ankara bag order",
+      logo: `${location.origin}/images/logo.jpg`,
+    },
+    callback: (response) => verifyAndFulfill(response, txRef, amount, { name, email, phone }),
+    onclose: () => {},
+  });
+}
+
+async function verifyAndFulfill(response, txRef, amount, customer) {
+  if (!response || response.status !== "successful") {
+    showToast("Payment was not completed");
+    return;
+  }
+  showToast("Verifying payment…");
+  try {
+    const res = await fetch("/api/verify-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        transaction_id: response.transaction_id,
+        tx_ref: txRef,
+        expected_amount: amount,
+      }),
+    });
+    const data = await res.json();
+    if (data.status === "success") fulfillPaidOrder(txRef, customer);
+    else showToast(`We couldn't verify your payment — please contact us on WhatsApp with reference ${txRef}`);
+  } catch {
+    showToast(`Network error verifying payment — contact us on WhatsApp with reference ${txRef}`);
+  }
+}
+
+function fulfillPaidOrder(txRef, customer) {
+  const cart = getCart();
+  const lines = cart.map((l) => {
+    const p = PRODUCTS.find((p) => p.id === l.id);
+    return `• ${p.name} × ${l.qty} — ${formatNaira(p.price * l.qty)}`;
+  });
+  const msg = [
+    "New PAID order via website ✅",
+    `Ref: ${txRef}`,
+    "",
+    ...lines,
+    "",
+    `Total: ${formatNaira(cartTotal())}`,
+    "",
+    `Name: ${customer.name || "-"}`,
+    `Phone: ${customer.phone || "-"}`,
+    `Email: ${customer.email}`,
+    "",
+    "Delivery location:",
+  ].join("\n");
+  saveCart([]);
+  closeCart();
+  showToast("✦ Payment successful — thank you!");
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
 }
 

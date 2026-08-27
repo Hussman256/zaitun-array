@@ -528,6 +528,15 @@ body::after {
 .cart-total-row .ct-value { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; }
 .cart-foot .cf-note { font-size: 0.78rem; color: var(--ink-2); margin-bottom: 1rem; }
 .cart-foot .btn { width: 100%; justify-content: center; }
+.checkout-fields { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 0.9rem; }
+.checkout-fields input {
+  font-family: var(--font-body); font-size: 0.9rem;
+  background: var(--paper); color: var(--ink);
+  border: 1.5px solid var(--ink); border-radius: 100px;
+  padding: 0.75rem 1.2rem; outline: none;
+}
+.checkout-fields input::placeholder { color: rgba(26, 20, 16, 0.5); }
+.cart-foot .pay-btn { margin-bottom: 0.7rem; }
 
 /* toast */
 .toast {

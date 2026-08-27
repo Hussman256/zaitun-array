@@ -230,6 +230,11 @@ const PRODUCTS = [
    (country code + number, digits only, e.g. 2348012345678) */
 const WHATSAPP_NUMBER = "2348000000000";
 
+/* Flutterwave public key — safe to expose client-side. Get the real one from
+   the Flutterwave dashboard (Settings > API) and put the matching secret key
+   in the FLW_SECRET_KEY environment variable on Vercel (never in this file). */
+const FLW_PUBLIC_KEY = "FLWPUBK_TEST-REPLACE-WITH-REAL-PUBLIC-KEY-X";
+
 const CATEGORY_LABELS = {
   backpacks: "Backpacks",
   work: "Work & Laptop",
