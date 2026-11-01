@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://temikoods.com/sitemap.xml
+Sitemap: https://zaitun-array.com/sitemap.xml

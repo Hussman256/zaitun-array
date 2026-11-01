@@ -1,6 +1,6 @@
-# Temikoods — Handcrafted Ankara Bags
+# Zaitun-Array — Handmade Bags from Lagos
 
-Award-style e-commerce site for the Temikoods bag brand. Static HTML/CSS/JS front end
+Award-style e-commerce site for the Zaitun-Array bag brand. Static HTML/CSS/JS front end
 plus one Vercel serverless function (`api/verify-payment.js`) for payment verification.
 Deployable to Vercel; a plain static host (Netlify, GitHub Pages) works for everything
 except the on-site card/transfer payment, which needs the serverless function.
@@ -10,7 +10,7 @@ except the on-site card/transfer payment, which needs the serverless function.
 | File | Purpose |
 |---|---|
 | `index.html` | Homepage — hero, featured bags, story, craft process, testimonials |
-| `shop.html` | Full catalog with category filters (`#backpacks`, `#work`, `#travel`) |
+| `shop.html` | Full catalog with category filters (`#totes`, `#backpacks`, `#sets`) |
 | `product.html?id=<id>` | Product detail page (rendered from `products.js`) |
 | `about.html` | Brand story |
 
@@ -20,12 +20,12 @@ except the on-site card/transfer payment, which needs the serverless function.
    with the brand's real number (country code + digits, no `+` or spaces).
    Also update the two `wa.me/2348000000000` footer links in each HTML file.
 2. **Prices & stock** — edit each product in `products.js` (`price`, `oldPrice`, `stock`).
-3. **Email & Instagram** — footer links currently point to `hello@temikoods.com`
-   and `@temikoods`; change if different.
+3. **Email & Instagram** — footer links currently point to `hello@zaitun-array.com`
+   and `@zaitunarray`; change if different.
 4. **Site domain** — Open Graph/Twitter share tags in every page's `<head>`, plus
-   `robots.txt` and `sitemap.xml`, use the placeholder `https://temikoods.com`;
+   `robots.txt` and `sitemap.xml`, use the placeholder `https://zaitun-array.com`;
    replace with the real production domain once it's live (search for
-   `temikoods.com` across the repo).
+   `zaitun-array.com` across the repo).
 5. **Flutterwave keys** — in `products.js`, replace `FLW_PUBLIC_KEY` with the real
    public key from the Flutterwave dashboard. Set the matching **secret** key as the
    `FLW_SECRET_KEY` environment variable in the Vercel project settings — never put it

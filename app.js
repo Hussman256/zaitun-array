@@ -1,9 +1,9 @@
 /* ============================================================
-   TEMIKOODS — App: cart, product rendering, interactions
+   ZAITUN-ARRAY — App: cart, product rendering, interactions
    ============================================================ */
 
 /* ---------- cart state (localStorage) ---------- */
-const CART_KEY = "temikoods_cart_v1";
+const CART_KEY = "zaitun_array_cart_v1";
 
 function getCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
@@ -167,7 +167,7 @@ function checkoutWhatsApp() {
     return `• ${p.name} × ${l.qty} — ${formatNaira(p.price * l.qty)}`;
   });
   const msg = [
-    "Hello Temikoods! 👋 I'd like to order:",
+    "Hello Zaitun-Array! 👋 I'd like to order:",
     "",
     ...lines,
     "",
@@ -203,7 +203,7 @@ function payOnline() {
   }
 
   const amount = cartTotal();
-  const txRef = `TMK-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const txRef = `ZA-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
   FlutterwaveCheckout({
     public_key: FLW_PUBLIC_KEY,
@@ -211,9 +211,9 @@ function payOnline() {
     amount,
     currency: "NGN",
     payment_options: "card, banktransfer, ussd",
-    customer: { email, phone_number: phone, name: name || "Temikoods Customer" },
+    customer: { email, phone_number: phone, name: name || "Zaitun-Array Customer" },
     customizations: {
-      title: "Temikoods",
+      title: "Zaitun-Array",
       description: "Payment for handcrafted ankara bag order",
       logo: `${location.origin}/images/logo.jpg`,
     },

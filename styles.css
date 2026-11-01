@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TEMIKOODS — "Carry Your Culture"
+   ZAITUN-ARRAY — "Carry Your Culture"
    African editorial luxury: warm paper, deep ink, ankara fire.
    Type: Fraunces (display) · Epilogue (body) · IBM Plex Mono (labels)
    ========================================================================== */
@@ -480,7 +480,7 @@ body::after {
 }
 .footer-mega {
   font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(3.5rem, 12vw, 11rem); line-height: 0.9; text-align: center;
+  font-size: clamp(2.2rem, 9vw, 8.5rem); line-height: 0.9; text-align: center; white-space: nowrap;
   color: transparent; -webkit-text-stroke: 1.5px rgba(244, 236, 221, 0.25);
   padding-block: 1.5rem 0.5rem; user-select: none;
 }
