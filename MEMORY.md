@@ -18,6 +18,11 @@ A running log of decisions and changes made while building this site. Newest ent
 
 ## Log
 
+### 2026-11-01 — Pushed to GitHub `main`
+- The user chose to put the Zaitun-Array work straight onto `main`. Fast-forwarded `main` to `zaitun-array-rebrand` and pushed to `github.com/Hussman256/zaitun-array`. The old Temikoods version is only in git history now (commit `3d44899`).
+- `package.json` engine changed from Node 18 to Node 22, because Vercel retired Node 18.
+- Next step: Vercel deploy. The plan is a preview first. Production waits for real prices, Flutterwave keys and real reviews.
+
 ### 2026-11-01 — Real WhatsApp numbers
 - The client has two lines: **0803 505 5985** and **0814 628 8244**.
 - Orders (cart "Checkout on WhatsApp", product-page order button, and the paid-order message) all go to **0803 505 5985** (`WHATSAPP_NUMBER = "2348035055985"`). This was my default choice; change it if the client wants orders on the other line.
