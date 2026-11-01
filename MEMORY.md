@@ -18,6 +18,12 @@ A running log of decisions and changes made while building this site. Newest ent
 
 ## Log
 
+### 2026-11-01 — Real WhatsApp numbers
+- The client has two lines: **0803 505 5985** and **0814 628 8244**.
+- Orders (cart "Checkout on WhatsApp", product-page order button, and the paid-order message) all go to **0803 505 5985** (`WHATSAPP_NUMBER = "2348035055985"`). This was my default choice; change it if the client wants orders on the other line.
+- The footer on all 4 pages lists both numbers as tap-to-chat links. The about-page "Chat with us" button uses the first number.
+- Prices and stock are deliberately left for later (user's decision).
+
 ### 2026-11-01 — New logo badge, logo colours, removed fake discount code
 - Work moved to branch **`zaitun-array-rebrand`**. `main` still holds the original Temikoods version.
 - `images/logo-badge.svg`: a hand-drawn vector of the round badge from the client's logo (olive field, mustard dotted ring, cream bag, orange zigzag, mustard leaf). It is used in the header and footer on all pages, as the favicon, and as the Flutterwave checkout logo.

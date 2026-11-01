@@ -193,7 +193,7 @@ const PRODUCTS = [
 
 /* WhatsApp number for checkout — replace with the brand's real number
    (country code + number, digits only, e.g. 2348012345678) */
-const WHATSAPP_NUMBER = "2348000000000";
+const WHATSAPP_NUMBER = "2348035055985"; // 0803 505 5985 — receives all orders (second line 0814 628 8244 is footer-only)
 
 /* Flutterwave public key — safe to expose client-side. Get the real one from
    the Flutterwave dashboard (Settings > API) and put the matching secret key

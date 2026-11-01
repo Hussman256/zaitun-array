@@ -52,7 +52,7 @@ Never list products that carry another company's logo, monogram or licensed char
 
 These are launch-blocking placeholders already flagged in `README.md` — don't treat them as bugs to silently "fix" without confirming with the user, but do flag if asked to review/ship:
 
-- `WHATSAPP_NUMBER` in `products.js` is `"2348000000000"` — a placeholder. It's also hardcoded separately as `wa.me/2348000000000` footer links in each HTML file (not derived from `products.js`), so both places need updating together.
+- `WHATSAPP_NUMBER` in `products.js` is the real order line, `2348035055985` (0803 505 5985). The footer of each HTML file hardcodes both client lines (0803 505 5985 and 0814 628 8244) as separate `wa.me` links, plus the about-page "Chat with us" button. These are not derived from `products.js`, so update all of them together if a number changes.
 - Footer email/Instagram (`hello@zaitun-array.com`, `@zaitunarray`) are placeholders in each HTML file's footer.
 - Per-product `price` and `stock` in `products.js` are placeholders (marked `// PLACEHOLDER`) until the client sends real values. `product.html` shows "Only N left in this batch", so placeholder stock is also a false scarcity claim.
 - Homepage testimonials (`index.html`, marked with an HTML comment), the "Loved by 500+ carriers" hero line, and the about-page stats (500+ bags, 3 continents) came from the previous template. They are not real Zaitun-Array figures.
