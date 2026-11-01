@@ -6,7 +6,9 @@ A running log of decisions and changes made while building this site. Newest ent
 ## Open items / to-do
 
 - [ ] **Real prices & stock for all 9 bags**: the user will send these. Every `price` and `stock` in `products.js` is marked `// PLACEHOLDER`.
-- [ ] **New logo**: the client has a Zaitun Array logo (green badge with a bag and leaf, "ZAITUN ARRAY · HANDMADE IN LAGOS"). It is only a WhatsApp JPEG with black rounded corners. Agreed plan: rebuild the round bag badge as an SVG for the header and footer, and use the full logo in large spots. Optionally change the site colours to the logo's olive, cream and mustard. On hold until after the bags; the user said "lets change the bags first". `images/logo.jpg` still shows the old Temikoods logo.
+- [ ] **Full logo file**: the badge is done (see log). The full logo (badge + "ZAITUN ARRAY · HANDMADE IN LAGOS") still needs the original file. It was a WhatsApp JPEG in Downloads but is no longer there. Ask for it again, or for the designer's original. `images/logo.jpg` (the old Temikoods logo) is now unused and can be deleted or replaced.
+- [ ] **Newsletter form saves nothing**: the home-page sign-up shows a "thanks" message, but the email is thrown away (front-end only). Connect it to a real list (Mailchimp, a Google Form, etc.) or remove it.
+- [ ] **Confirm delivery promises**: the top banner says "Free Lagos delivery over ₦50,000 · Nationwide in 2–4 days", and the shop page has delivery times and a 6-month guarantee. These came from the old template, so confirm them with the client.
 - [ ] **Testimonials and stats are not real**: the 3 homepage testimonials, "Loved by 500+ carriers", and the about-page "500+ bags / 3 continents" came from the old template. Replace them with real figures or remove them before launch.
 - [ ] **Confirm product details with the client**: the descriptions were written from the photos only, with no sizes or materials confirmed. Some photos look AI-generated or styled (the green/blue batik pair, the bronze croc set). Ask whether real product photos exist.
 - [ ] **Branded bags left out**: 5 client photos were not used because they show other companies' trademarks: 3 FILA kids' backpacks with Batman or Paw Patrol, an LV-monogram duffel, and a backpack with a Gucci-style stripe. If the client makes unbranded versions, add them then.
@@ -15,6 +17,12 @@ A running log of decisions and changes made while building this site. Newest ent
 - [ ] Launch placeholders from before the rename are still open (WhatsApp number, Flutterwave public key, prices and stock). See "Known placeholders" in `CLAUDE.md`.
 
 ## Log
+
+### 2026-11-01 — New logo badge, logo colours, removed fake discount code
+- Work moved to branch **`zaitun-array-rebrand`**. `main` still holds the original Temikoods version.
+- `images/logo-badge.svg`: a hand-drawn vector of the round badge from the client's logo (olive field, mustard dotted ring, cream bag, orange zigzag, mustard leaf). It is used in the header and footer on all pages, as the favicon, and as the Flutterwave checkout logo.
+- Site palette changed to match the logo, in the `:root` tokens in `styles.css`. Ink is now deep olive-black `#1c2314`, the accent is burnt orange `#c2622a`, `--indigo` holds the logo olive `#3b4a23`, and `--gold` is mustard `#e3a63b`. Token names are left over from the old template.
+- Removed the fake "AKWAABA10 for 10% off" code from the top banner on all 4 pages, from the newsletter heading ("Get 10% off…" became "Be first to see new prints") and from the newsletter thank-you message. The code never worked.
 
 ### 2026-11-01 — Replaced the whole catalog with the new client's bags
 - The client's photos are in `C:\Users\pc\Desktop\zaitun array\` (14 WhatsApp images). 9 were used. 5 branded ones were left out (see open items).

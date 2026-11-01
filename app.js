@@ -215,7 +215,7 @@ function payOnline() {
     customizations: {
       title: "Zaitun-Array",
       description: "Payment for handcrafted ankara bag order",
-      logo: `${location.origin}/images/logo.jpg`,
+      logo: `${location.origin}/images/logo-badge.svg`,
     },
     callback: (response) => verifyAndFulfill(response, txRef, amount, { name, email, phone }),
     onclose: () => {},
@@ -376,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const input = form.querySelector("input");
       if (input.value.trim()) {
-        showToast("✦ Welcome to the family — 10% code: AKWAABA10");
+        showToast("✦ Thanks for joining the family!");
         input.value = "";
       }
     })

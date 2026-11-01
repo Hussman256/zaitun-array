@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Zaitun-Array">
+  <!-- Vector redraw of the round badge from the Zaitun Array logo:
+       olive field, mustard dotted ring, cream ring, cream bag with
+       burnt-orange zigzag, olive dots and a mustard leaf. -->
+  <circle cx="100" cy="100" r="100" fill="#3b4a23"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#e3a63b" stroke-width="4"
+          stroke-linecap="round" stroke-dasharray="0.01 9.2"/>
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#f4ecd8" stroke-width="3.2"/>
+  <!-- handle -->
+  <path d="M85.5 88 V77 A14.5 13 0 0 1 114.5 77 V88" fill="none" stroke="#f4ecd8"
+        stroke-width="5.2" stroke-linecap="round"/>
+  <!-- leaf -->
+  <path d="M115 77 Q123 60 146 62 Q137 79 115 77 Z" fill="#e3a63b"/>
+  <!-- bag body -->
+  <path d="M67.5 86.5 H132.5 L139 141 H61 Z" fill="#f4ecd8"/>
+  <!-- zigzag -->
+  <polyline points="66,118 78,105 91,118 104,105 117,118 130,105 136.5,116"
+            fill="none" stroke="#c2622a" stroke-width="4.4"
+            stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- dots -->
+  <circle cx="78.5" cy="130" r="2.9" fill="#3b4a23"/>
+  <circle cx="100" cy="130" r="2.9" fill="#3b4a23"/>
+  <circle cx="121.5" cy="130" r="2.9" fill="#3b4a23"/>
+</svg>

@@ -7,17 +7,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Epilogue:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* palette — pulled from the bags themselves */
-  --ink: #1a1410;
-  --ink-2: #2b211a;
+  /* palette — taken from the Zaitun Array logo (olive, cream, mustard, burnt orange).
+     Token names are from the old template: --indigo now holds the logo olive. */
+  --ink: #1c2314;
+  --ink-2: #2a331f;
   --paper: #f4ecdd;
   --paper-2: #ece0c9;
   --cream: #fbf6ea;
-  --orange: #e05a1e;
-  --orange-deep: #b8430f;
-  --indigo: #24337f;
-  --indigo-deep: #182357;
-  --gold: #e3a61b;
+  --orange: #c2622a;
+  --orange-deep: #9a4b1c;
+  --indigo: #3b4a23;
+  --indigo-deep: #2b3719;
+  --gold: #e3a63b;
   --oxblood: #8c2318;
   --olive: #6b7c2c;
   --line: rgba(26, 20, 16, 0.16);
@@ -143,9 +144,7 @@ body::after {
 }
 .brand { display: flex; align-items: center; gap: 0.8rem; }
 .brand img {
-  width: 46px; height: 46px; object-fit: cover; border-radius: 50%;
-  border: 2px solid var(--ink);
-  background: #fff;
+  width: 50px; height: 50px; border-radius: 50%;
 }
 .brand-name {
   font-family: var(--font-display); font-weight: 650; font-size: 1.45rem; letter-spacing: -0.01em;
